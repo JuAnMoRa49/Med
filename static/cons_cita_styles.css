@@ -1,0 +1,133 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  background-image: url(imagenes/fondo7.jpeg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; 
+}
+
+.container {
+  width: 700px;
+  margin-bottom: 250px;
+  padding: 5px 30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+
+}
+
+form {
+  margin-bottom: 20px;
+  
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+  padding: 10px;
+  
+}
+
+form input[type="text"],
+form input[type="date"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form input[type="submit"] {
+  padding: 6px 10px;
+  margin-top: 20px;
+  border-radius: 4px;
+  background-color: #3498db;
+  color: #fff;
+  cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+  background-color: #2980b9;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #098f7d;
+}
+
+table th,
+table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background-color: #EAF2F8;
+  font-weight: bold;
+  color: #004E7C;
+}
+
+table td:last-child {
+  white-space: nowrap;
+}
+
+button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #3498db;
+  color: #fff;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+.menu-container {
+  display: flex; 
+  justify-content: center; 
+  gap: 10px; 
+  margin-bottom: 20px; 
+}
+
+.btn {
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  padding: 8px 16px; 
+  text-decoration: none; 
+  background-color: #098f7d; 
+  color: #fff; 
+  border-radius: 20px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  transition: all 0.3s ease; 
+  font-weight: 600; 
+  letter-spacing: 1px; 
+  margin-top: 20px; 
+  margin-right: 10px; 
+}
+
+.btn:hover {
+  background-color: #076861; 
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.12); 
+  transform: translateY(-2px); 
+}
+
+.btn:active {
+  transform: translateY(1px); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); 
+}
+

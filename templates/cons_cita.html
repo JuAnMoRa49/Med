@@ -1,0 +1,49 @@
+{% extends "base_menu.html" %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="../static/cons_cita_styles.css">
+
+  <div class="container">
+    <h2>Consultar Citas</h2>
+    
+    <form id="filtroForm" method="post">
+      <!-- Filtrar por Nombre -->
+      <label for="nombre">Filtrar por Nombre:</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre del paciente">
+      
+      <!-- Filtrar por Fecha -->
+      <label for="fecha">Filtrar por Fecha:</label>
+      <input type="date" id="fecha" name="fecha">
+    
+      <input type="submit" value="Filtrar">
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Fecha</th>
+          <th>Paciente</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Datos de citas consultadas -->
+        {% for cita in citas %}
+        <tr>
+          <td>{{ cita['ID'] }}</td>
+          <td>{{ cita['Fecha'] }}</td>
+          <td>{{ cita['NombrePaciente'] }}</td>
+          <td>
+            <button class="ver-receta">Ver Receta</button>
+            <button class="reimprimir-receta">Reimprimir Receta</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
+
+{% endblock %}
