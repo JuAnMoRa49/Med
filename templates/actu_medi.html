@@ -1,12 +1,11 @@
-{% extends "base.html" %}
-{% block content %}
+
 
 <link rel="stylesheet" type="text/css" href="../static/actu_medi_styles.css">
 
 
   <div class="container">
     <h2>Actualizar registros</h2>
-    <form action="/actualizar" method="post">
+    <form action="/actu_medi" method="post">
       <label for="rfc">RFC:</label>
       <input type="text" id="RFC" name="RFC" required value="{{ user.RFC }}">
   
@@ -17,19 +16,18 @@
       <input type="text" id="CedulaProfesional" name="CedulaProfesional" required value="{{ user.CedulaProfesional }}">
   
       <label for="correo">Correo:</label>
-      <input type="email" id="correo" name="correo" required value="{{ user.correo }}">
+      <input type="email" id="correo" name="correo" required value="{{ user.Correo }}">
   
       <label for="password">Contraseña:</label>
-      <input type="password" id="password" name="password" required value="{{ user.password }}">
+      <input type="password" id="password" name="password" required value="{{ user.Password }}">
   
       <label for="rol">Rol:</label>
       <select id="rol" name="rol">
-          <option value="medicoadmin" {% if user.rol == 'medicoadmin' %} selected {% endif %}>Médico Admin</option>
-          <option value="medico" {% if user.rol == 'medico' %} selected {% endif %}>Médico</option>
+          <option value="Medico Admin" {% if user.rol == 'Medico Admin' %} selected {% endif %}>Médico Admin</option>
+          <option value="Medico" {% if user.rol == 'Medico' %} selected {% endif %}>Médico</option>
       </select>
   
       <input type="submit" value="Actualizar">
   </form>
 
 
-{% endblock %}

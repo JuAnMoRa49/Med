@@ -2,24 +2,101 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Buscar</title>
+    <title>Buscar Registros por RFC</title>
     <link rel="stylesheet" type="text/css" href="../static/estilosADM.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        input[type="submit"] {
+            display: block;
+            margin: 0 auto;
+            padding: 8px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        h3 {
+            font-size: 16px;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        p {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h2>Buscar registros por RFC</h2>
-        <form action="/buscar" method="post">
+        <h2>Buscar Registros por RFC</h2>
+        <form action="/busc_medi" method="post">
             <label for="rfc">RFC:</label>
             <input type="text" id="rfc" name="rfc" required>
             <input type="submit" value="Buscar">
         </form>
 
         {% if user %}
-            <h3>Datos del usuario</h3>
-            <p><strong>Nombre completo:</strong> {{ user.NombreCompleto }}</p>
+        <h3>Datos del Usuario</h3>
+        <p><strong>Nombre Completo:</strong> {{ user.NombreCompleto }}</p>
+        <p><strong>Cédula Profesional:</strong> {{ user.CedulaProfesional }}</p>
+        <p><strong>Correo:</strong> {{ user.Correo }}</p>
+        <p><strong>Rol:</strong> {{ user.Rol }}</p>
         {% endif %}
     </div>
 </body>
-
-
-{% endblock %}
+</html>
