@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="../static/cons_paci_styles.css">
+
+
+<table border="1">
+  <thead>
+      <tr>
+          <th>ID</th>
+          <th>Nombre Completo</th>
+          <th>Fecha de Nacimiento</th>
+          <th>Enfermedades Crónicas</th>
+          <th>Alergias</th>
+          <th>Antecedentes Familiares</th>
+      </tr>
+  </thead>
+  <tbody>
+      {% for paciente in pacientes %}
+      <tr>
+          <td>{{ paciente.ID }}</td>
+          <td>{{ paciente.NombreCompleto }}</td>
+          <td>{{ paciente.FechaNacimiento }}</td>
+          <td>{{ paciente.EnfermedadesCronicas }}</td>
+          <td>{{ paciente.Alergias }}</td>
+          <td>{{ paciente.AntecedentesFamiliares }}</td>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock %}
+

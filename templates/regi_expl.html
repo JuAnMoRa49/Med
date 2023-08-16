@@ -1,0 +1,68 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../static/regi_expl_styles.css">
+
+  <div class="container">
+    <h2>Registro de Pacientes</h2>
+
+
+    <form method="POST" action="{{ url_for('registroEXP') }}">
+      <label for="medico">Médico que atiende:</label>
+      <input type="text" id="medicoAtiende" name="medicoAtiende" required>
+
+      <label for="nombre">Nombre completo del paciente:</label>
+      <input type="text" id="nombrePaciente" name="nombrePaciente" required>
+
+      <label for="fecha">Fecha de nacimiento:</label>
+      <input type="date" id="fechanacimiento" name="fechanacimiento" required>
+
+      <label for="enfermedades">Enfermedades crónicas:</label>
+      <textarea id="enfermedades" name="enfermedades" rows="4"></textarea>
+
+      <label for="alergias">Alergias:</label>
+      <textarea id="alergias" name="alergias" rows="4"></textarea>
+
+      <label for="antecedentes">Antecedentes familiares:</label>
+      <textarea id="antecedentes" name="antecedentes" rows="4"></textarea>
+
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
+
+  {% with mensajes = get_flashed_messages(with_categories=True) %}
+{% if mensajes %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            {% for category, message in mensajes %}
+                {% if category == 'error' %}
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Error',
+                        text: "{{ message }}",
+                        showConfirmButton: true,
+                        timer: 5000
+                    });
+                {% else %}
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: "{{ message }}",
+                        showConfirmButton: true,
+                        timer: 5000
+                    });
+                {% endif %}
+            {% endfor %}
+        });
+    </script>
+{% endif %}
+{% endwith %}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js"></script>
+
+
+{% endblock %}
