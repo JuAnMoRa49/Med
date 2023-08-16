@@ -34,7 +34,7 @@ def login():
         return redirect(url_for('index'))
 
 
-@app.route('/buscar', methods=['GET', 'POST'])
+@app.route('/busc_medi', methods=['GET', 'POST'])
 def buscar():
     cursor = get_cursor()
     user = None

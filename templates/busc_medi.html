@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar</title>
+    <link rel="stylesheet" type="text/css" href="../static/estilosADM.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Buscar registros por RFC</h2>
+        <form action="/buscar" method="post">
+            <label for="rfc">RFC:</label>
+            <input type="text" id="rfc" name="rfc" required>
+            <input type="submit" value="Buscar">
+        </form>
+
+        {% if user %}
+            <h3>Datos del usuario</h3>
+            <p><strong>Nombre completo:</strong> {{ user.NombreCompleto }}</p>
+        {% endif %}
+    </div>
+</body>
+
+
+{% endblock %}
