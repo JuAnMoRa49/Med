@@ -7,7 +7,7 @@
     <h2>Registro de Pacientes</h2>
 
 
-    <form method="POST" action="{{ url_for('registroEXP') }}">
+    <form method="POST" action="{{ url_for('regi_expl') }}">
       <label for="medico">Médico que atiende:</label>
       <input type="text" id="medicoAtiende" name="medicoAtiende" required>
 
@@ -29,36 +29,6 @@
       <button type="submit">Guardar</button>
     </form>
   </div>
-
-  {% with mensajes = get_flashed_messages(with_categories=True) %}
-{% if mensajes %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            {% for category, message in mensajes %}
-                {% if category == 'error' %}
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'error',
-                        title: 'Error',
-                        text: "{{ message }}",
-                        showConfirmButton: true,
-                        timer: 5000
-                    });
-                {% else %}
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Éxito',
-                        text: "{{ message }}",
-                        showConfirmButton: true,
-                        timer: 5000
-                    });
-                {% endif %}
-            {% endfor %}
-        });
-    </script>
-{% endif %}
-{% endwith %}
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js"></script>
 

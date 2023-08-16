@@ -6,8 +6,8 @@
     <link rel="stylesheet" type="text/css" href="../static/estilosADM.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Helvetica Neue', sans-serif;
+            background: #333;
             margin: 0;
             padding: 0;
             display: flex;
@@ -17,18 +17,24 @@
         }
 
         .container {
-            width: 300px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            padding: 30px;
+            background: linear-gradient(135deg, #3498db, #e74c3c);
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             text-align: center;
+            color: #fff;
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: scale(1.05);
         }
 
         h2 {
-            font-size: 18px;
+            font-size: 24px;
             margin-bottom: 20px;
-            color: #333;
         }
 
         form {
@@ -38,42 +44,42 @@
         label {
             display: block;
             font-weight: bold;
-            margin-bottom: 5px;
-            color: #555;
+            margin-bottom: 10px;
         }
 
         input[type="text"] {
             width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+            color: #333;
         }
 
         input[type="submit"] {
-            display: block;
-            margin: 0 auto;
-            padding: 8px 20px;
-            background-color: #4caf50;
-            color: #fff;
+            display: inline-block;
+            padding: 10px 100px;
+            background: #2ecc71;
             border: none;
-            border-radius: 3px;
+            border-radius: 5px;
+            color: #fff;
             cursor: pointer;
             font-weight: bold;
+            transition: background 0.3s ease;
         }
 
         input[type="submit"]:hover {
-            background-color: #45a049;
+            background: #27ae60;
         }
 
         h3 {
-            font-size: 16px;
+            font-size: 18px;
             margin-top: 20px;
-            color: #333;
         }
 
         p {
             margin: 10px 0;
-            color: #555;
         }
 
         strong {

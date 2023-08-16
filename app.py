@@ -25,11 +25,11 @@ def login():
     rfc = request.form['rfc']
     password = request.form['password']
     cursor = get_cursor()
-    query = 'SELECT RFC FROM usuarios WHERE RFC = %s AND password = %s'
+    query = 'SELECT RFC FROM Medicos WHERE RFC = %s AND password = %s'
     cursor.execute(query, (rfc, password))
     resultado = cursor.fetchone()
     if resultado is not None:
-        return redirect(url_for('admin_medi'))
+        return redirect(url_for('admi_medi'))
     else:
         flash('RFC o contraseña incorrectos', 'error')  # Flash an error message
         return redirect(url_for('index'))
@@ -111,12 +111,12 @@ def admi_medi():
             rol = 'Médico'
 
         cursor = get_cursor()
-        query = 'INSERT INTO usuarios (RFC, nombreCompleto, cedulaProfesional, correo, password, rol) ' \
+        query = 'INSERT INTO Medicos (RFC, nombreCompleto, cedulaProfesional, correo, password, rol) ' \
                 'VALUES (%s, %s, %s, %s, %s, %s)'
         cursor.execute(query, (rfc, nombre, cedula, correo, password, rol))
         mysql.connection.commit()
 
-        return redirect(url_for('admin_medi'))
+        return redirect(url_for('admi_medi'))
 
     return render_template('admi_medi.html')
 
@@ -130,14 +130,14 @@ def cons_cita():
         fecha = request.form.get('fecha')
 
         if nombre:
-            query = '''SELECT Citas.*, Pacientes.nombreCompleto, Medicos.nombreCompleto AS nombreMedico
+            query = '''SELECT Medicos.nombreCompleto AS nombreMedico, Pacientes.nombreCompleto AS nombrePaciente, Citas.*
                        FROM Citas
                        JOIN Pacientes ON Citas.idPaciente = Pacientes.idPaciente
                        JOIN Medicos ON Pacientes.idMedico = Medicos.idMedico
                        WHERE Pacientes.nombreCompleto LIKE %s'''
             cursor.execute(query, ('%' + nombre + '%',))
         elif fecha:
-            query = '''SELECT Citas.*, Pacientes.nombreCompleto, Medicos.nombreCompleto AS nombreMedico
+            query = '''SELECT Medicos.nombreCompleto AS nombreMedico, Pacientes.nombreCompleto AS nombrePaciente, Citas.*
                        FROM Citas
                        JOIN Pacientes ON Citas.idPaciente = Pacientes.idPaciente
                        JOIN Medicos ON Pacientes.idMedico = Medicos.idMedico
@@ -147,6 +147,38 @@ def cons_cita():
         citas = cursor.fetchall()
 
     return render_template('cons_cita.html', citas=citas)
+
+
+@app.route('/regi_expl', methods=['GET', 'POST'])
+def regi_expl():
+    if request.method == 'POST':
+        medicoAtiende = request.form['medicoAtiende']
+        nombrePaciente = request.form['nombrePaciente']
+        fechanacimiento = request.form['fechanacimiento']
+        enfermedades = request.form['enfermedades']
+        alergias = request.form['alergias']
+        antecedentes = request.form['antecedentes']
+
+        cursor = get_cursor()
+
+        # Obtener el idMedico a partir del nombre del médico
+        cursor.execute("SELECT idMedico FROM Medicos WHERE nombreCompleto = %s", (medicoAtiende,))
+        medico = cursor.fetchone()
+        if not medico:
+            flash('El médico proporcionado no existe', 'error')
+            return redirect(url_for('regi_expl'))
+
+        idMedico = medico['idMedico']
+
+        # Insertar el paciente en la base de datos
+        cursor.execute("INSERT INTO Pacientes (idMedico, nombreCompleto, fechaNacimiento, enfermedadesCronicas, alergias, antecedentesFamiliares) VALUES (%s, %s, %s, %s, %s, %s)", (idMedico, nombrePaciente, fechanacimiento, enfermedades, alergias, antecedentes))
+        mysql.connection.commit()
+
+        flash('Paciente registrado con éxito', 'success')
+
+        return redirect(url_for('regi_expl'))
+
+    return render_template('regi_expl.html')
 
 
 

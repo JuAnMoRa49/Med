@@ -35,15 +35,16 @@
             <tbody>
                 {% for cita in citas %}
                 <tr>
-                    <td>{{ cita.nombreCompleto }}</td>
-                    <td>{{ cita.nombreMedico }}</td>
-                    <td>{{ cita.fecha }}</td>
-                    <td>{{ cita.sintomas }}</td>
-                    <td>{{ cita.diagnostico }}</td>
-                    <td>{{ cita.tratamiento }}</td>
+                    <td>{{ cita.nombreCompletoPaciente }}</td>
+                    <td>{{ cita.nombreCompletoMedico }}</td>
+                    <td>{{ cita.Fecha }}</td>
+                    <td>{{ cita.Sintomas }}</td>
+                    <td>{{ cita.Diagnostico }}</td>
+                    <td>{{ cita.Tratamiento }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
+            
         </table>
     </div>
     {% endif %}
