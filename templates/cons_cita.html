@@ -2,8 +2,6 @@
 <link rel="stylesheet" type="text/css" href="../static/cons_cita_styles.css">
 
 
-
-
 <div class="container">
     <div class="form-container">
         <h2>Buscar Cita</h2>
@@ -24,8 +22,8 @@
         <table style="color: black;">
             <thead>
                 <tr>
-                    <th>Nombre Paciente</th>
                     <th>Nombre Médico</th>
+                    <th>Nombre Paciente</th>
                     <th>Fecha</th>
                     <th>Síntomas</th>
                     <th>Diagnóstico</th>
@@ -35,18 +33,18 @@
             <tbody>
                 {% for cita in citas %}
                 <tr>
-                    <td>{{ cita.nombreCompletoPaciente }}</td>
-                    <td>{{ cita.nombreCompletoMedico }}</td>
-                    <td>{{ cita.Fecha }}</td>
-                    <td>{{ cita.Sintomas }}</td>
-                    <td>{{ cita.Diagnostico }}</td>
-                    <td>{{ cita.Tratamiento }}</td>
+                    <td>{{ cita.nombreMedico }}</td>
+                    <td>{{ cita.nombrePaciente }}</td>
+                    <td>{{ cita.fecha }}</td>
+                    <td>{{ cita.sintomas }}</td>
+                    <td>{{ cita.diagnostico }}</td>
+                    <td>{{ cita.tratamiento }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
-            
         </table>
     </div>
     {% endif %}
 </div>
+
 

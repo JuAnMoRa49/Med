@@ -126,16 +126,17 @@ def cons_cita():
     citas = None
 
     if request.method == 'POST':
-        nombre = request.form.get('nombre')
+        nombreMedico = request.form.get('nombreMedico')
         fecha = request.form.get('fecha')
 
-        if nombre:
+        if nombreMedico:
             query = '''SELECT Medicos.nombreCompleto AS nombreMedico, Pacientes.nombreCompleto AS nombrePaciente, Citas.*
                        FROM Citas
                        JOIN Pacientes ON Citas.idPaciente = Pacientes.idPaciente
                        JOIN Medicos ON Pacientes.idMedico = Medicos.idMedico
-                       WHERE Pacientes.nombreCompleto LIKE %s'''
-            cursor.execute(query, ('%' + nombre + '%',))
+                       WHERE Medicos.nombreCompleto LIKE %s'''
+            cursor.execute(query, ('%' + nombreMedico + '%',))
+            citas = cursor.fetchall()  # Ejecutar y obtener los resultados
         elif fecha:
             query = '''SELECT Medicos.nombreCompleto AS nombreMedico, Pacientes.nombreCompleto AS nombrePaciente, Citas.*
                        FROM Citas
@@ -143,10 +144,12 @@ def cons_cita():
                        JOIN Medicos ON Pacientes.idMedico = Medicos.idMedico
                        WHERE Citas.fecha = %s'''
             cursor.execute(query, (fecha,))
+            citas = cursor.fetchall()  # Ejecutar y obtener los resultados
         
-        citas = cursor.fetchall()
 
     return render_template('cons_cita.html', citas=citas)
+
+
 
 
 @app.route('/regi_expl', methods=['GET', 'POST'])
