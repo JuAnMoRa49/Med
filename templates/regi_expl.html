@@ -35,7 +35,36 @@
 
       <button type="submit">Guardar</button>
     </form>
-  </div>
 
+  </div>
+  {% with mensajes = get_flashed_messages(with_categories=True) %}
+{% if mensajes %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            {% for category, message in mensajes %}
+                {% if category == 'error' %}
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Error',
+                        text: "{{ message }}",
+                        showConfirmButton: true,
+                        timer: 5000
+                    });
+                {% else %}
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: "{{ message }}",
+                        showConfirmButton: true,
+                        timer: 5000
+                    });
+                {% endif %}
+            {% endfor %}
+        });
+    </script>
+{% endif %}
+{% endwith %}
 </body>
 </html>

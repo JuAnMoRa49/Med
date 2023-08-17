@@ -19,22 +19,76 @@ def get_cursor():
 def index():
     return render_template('login_medi.html')
 
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # Verificar si el correo electrónico está almacenado en la sesión
+        if 'rfc_user' not in session:
+            # Redirigir al inicio de sesión si no ha iniciado sesión
+            flash('Debe iniciar sesión para acceder a esta página.')
+            return redirect(url_for('index'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+
+
 @app.route('/login', methods=['POST'])
 def login():
-    rfc = request.form['rfc']
-    password = request.form['password']
-    cursor = get_cursor()
-    query = 'SELECT RFC FROM Medicos WHERE RFC = %s AND password = %s'
-    cursor.execute(query, (rfc, password))
-    resultado = cursor.fetchone()
+    
+    vrfc = request.form['rfc']
+    vpassword = request.form['password']
+    CS= mysql.connection.cursor()
+    
+    consulta= 'select RFC from Medicos where RFC = %s and password = %s'
+    CS.execute(consulta, (vrfc, vpassword))
+    resultado = CS.fetchone()
+    
     if resultado is not None:
+        session['rfc_user'] = vrfc
         return redirect(url_for('admi_medi'))
     else:
-        flash('RFC o contraseña incorrectos', 'error')  # Flash an error message
+        flash('RFC o contraseña incorrectos')
         return redirect(url_for('index'))
+    
+
+
+
+@app.route('/admi_medi', methods=['POST', 'GET'])
+@login_required
+def admi_medi():
+    if request.method == 'POST':
+        rfc = request.form.get('rfc')
+        nombre = request.form.get('nombre')
+        cedula = request.form.get('cedula')
+        correo = request.form.get('correo')
+        password = request.form.get('password')
+        rol = request.form.get('rol')
+
+        if not all([rfc, nombre, cedula, correo, password, rol]):
+            error_message = "Por favor, completa todos los campos"
+            return render_template('admi_medi.html', error=error_message)
+
+        if rol == 'medicoadmin':
+            rol = 'Médico Admin'
+        elif rol == 'medico':
+            rol = 'Médico'
+
+        cursor = get_cursor()
+        query = 'INSERT INTO Medicos (RFC, nombreCompleto, cedulaProfesional, correo, password, rol) ' \
+                'VALUES (%s, %s, %s, %s, %s, %s)'
+        cursor.execute(query, (rfc, nombre, cedula, correo, password, rol))
+        mysql.connection.commit()
+        flash('Registro exitosamente!') 
+        return redirect(url_for('admi_medi'))
+
+    return render_template('admi_medi.html')
+
 
 
 @app.route('/busc_medi', methods=['GET', 'POST'])
+@login_required
 def buscar():
     cursor = get_cursor()
     user = None
@@ -65,6 +119,7 @@ def buscar():
 
     return render_template('busc_medi.html', user=user)
 
+
 @app.route('/actu_medi', methods=['POST'])
 def actu_medi():
     cursor = get_cursor()
@@ -89,37 +144,9 @@ def actu_medi():
 
 
 
-@app.route('/admi_medi', methods=['POST', 'GET'])
-# @login_required
-def admi_medi():
-    if request.method == 'POST':
-        rfc = request.form.get('rfc')
-        nombre = request.form.get('nombre')
-        cedula = request.form.get('cedula')
-        correo = request.form.get('correo')
-        password = request.form.get('password')
-        rol = request.form.get('rol')
-
-        if not all([rfc, nombre, cedula, correo, password, rol]):
-            error_message = "Por favor, completa todos los campos"
-            return render_template('admi_medi.html', error=error_message)
-
-        if rol == 'medicoadmin':
-            rol = 'Médico Admin'
-        elif rol == 'medico':
-            rol = 'Médico'
-
-        cursor = get_cursor()
-        query = 'INSERT INTO Medicos (RFC, nombreCompleto, cedulaProfesional, correo, password, rol) ' \
-                'VALUES (%s, %s, %s, %s, %s, %s)'
-        cursor.execute(query, (rfc, nombre, cedula, correo, password, rol))
-        mysql.connection.commit()
-
-        return redirect(url_for('admi_medi'))
-
-    return render_template('admi_medi.html')
 
 @app.route('/cons_cita', methods=['GET', 'POST'])
+@login_required
 def cons_cita():
     cursor = get_cursor()
     citas = None
@@ -152,6 +179,7 @@ def cons_cita():
 
 
 @app.route('/regi_expl', methods=['GET', 'POST'])
+@login_required
 def regi_expl():
     if request.method == 'POST':
         medicoAtiende = request.form['medicoAtiende']
@@ -170,8 +198,7 @@ def regi_expl():
             flash('El médico proporcionado no existe', 'error')
             return redirect(url_for('regi_expl'))
 
-        idMedico = medico['idMedico']
-
+        idMedico = medico[0]
         # Insertar el paciente en la base de datos
         cursor.execute("INSERT INTO Pacientes (idMedico, nombreCompleto, fechaNacimiento, enfermedadesCronicas, alergias, antecedentesFamiliares) VALUES (%s, %s, %s, %s, %s, %s)", (idMedico, nombrePaciente, fechanacimiento, enfermedades, alergias, antecedentes))
         mysql.connection.commit()
@@ -186,10 +213,8 @@ def regi_expl():
 
 @app.route('/cerrar')
 def logout():
-    # session.pop('rfcu', None)
-    # Redirigir al usuario a la página de inicio de sesión
+    session.pop('rfc_user', None)
     return redirect(url_for('index'))
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)
