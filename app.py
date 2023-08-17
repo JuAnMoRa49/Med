@@ -4,10 +4,9 @@ from functools import wraps
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
-app.config['MYSQL_HOST'] = "127.0.0.1"
+app.config['MYSQL_HOST'] = "localhost"
 app.config['MYSQL_USER'] = "root"
-app.config['MYSQL_PASSWORD'] = ""
-#app.config['MYSQL_PORT'] = 3307  # Puerto específico
+app.config['MYSQL_PASSWORD'] = "danny22"
 app.config['MYSQL_DB'] = "BaseMedicos"
 app.secret_key = 'mysecretkey'
 
@@ -185,7 +184,11 @@ def regi_expl():
 
 
 
-
+@app.route('/cerrar')
+def logout():
+    # session.pop('rfcu', None)
+    # Redirigir al usuario a la página de inicio de sesión
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':

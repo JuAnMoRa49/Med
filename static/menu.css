@@ -1,0 +1,66 @@
+
+body {
+    background-image: url(images/fondo6.jpeg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Helvetica Neue', sans-serif;
+    /* background: #333; */
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    
+}
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+.menu {
+    
+    background-color:#057981fa;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.521); 
+}
+
+.menu h2{
+
+margin-bottom: 5px;
+color: white;
+text-align: center;
+}
+
+
+nav {
+    background-color: #ffffff;
+    padding: 5px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 4px;
+}
+
+a:hover {
+    background-color: #32db08;
+    color: #dfe7de;
+} 
+
+/* ----------------------------------------------------------- */
+

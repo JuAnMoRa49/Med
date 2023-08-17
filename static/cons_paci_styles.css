@@ -1,4 +1,4 @@
-body {
+/* body {
   font-family: Arial, sans-serif;
   background-color: #f2f2f2;
   background-image: url(imagenes/fondo6.jpeg);
@@ -9,7 +9,7 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh; 
-}
+} */
 
 .container {
   width: 800px;

@@ -3,29 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Buscar Registros por RFC</title>
-    <link rel="stylesheet" type="text/css" href="../static/estilosADM.css">
     <style>
-        body {
-            font-family: 'Helvetica Neue', sans-serif;
-            background: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+       
 
         .container {
             width: 400px;
             padding: 30px;
+            margin: 30px auto;
             background: linear-gradient(135deg, #3498db, #e74c3c);
             border-radius: 10px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             text-align: center;
             color: #fff;
+            justify-content: center;
             transform: scale(1);
             transition: transform 0.3s ease;
+            
         }
 
         .container:hover {
@@ -86,8 +79,12 @@
             font-weight: bold;
         }
     </style>
+
 </head>
 <body>
+
+    {% include 'menu.html'%} 
+    
     <div class="container">
         <h2>Buscar Registros por RFC</h2>
         <form action="/busc_medi" method="post">
