@@ -1,58 +1,83 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>ConsultarCita</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../static/cons_cita_styles.css">
 </head>
+
 <body>
-    
-    {% include 'menu.html'%} 
 
-<div class="container">
-    <div class="form-container">
-        <h2>Buscar Cita</h2>
-        <form action="/cons_cita" method="post">
-            <label for="nombre">Nombre del paciente:</label>
-            <input type="text" id="nombre" name="nombre">
+    {% include 'menu.html'%}
 
-            <label for="fecha">Fecha de la cita:</label>
-            <input type="date" id="fecha" name="fecha">
+    <!-- Inicio del div de contenido centrado -->
+    <div class="centered-content">
+        <div class="container mt-5">
+            <div class="form-container">
+                <h2>Buscar Cita</h2>
+                <form action="/cons_cita" method="post" class="form-inline">
+                    <label for="nombre" class="mr-2">Nombre del paciente:</label>
+                    <input type="text" id="nombre" name="nombre" class="form-control mr-2">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </form>
+            </div>
 
-            <input type="submit" value="Buscar">
-        </form>
-    </div>
-
-    {% if citas %}
-    <div class="results-container">
-        <h2>Resultados</h2>
-        <table style="color: black;">
-            <thead>
-                <tr>
-                    <th>Nombre Médico</th>
-                    <th>Nombre Paciente</th>
-                    <th>Fecha</th>
-                    <th>Síntomas</th>
-                    <th>Diagnóstico</th>
-                    <th>Tratamiento</th>
-                </tr>
-            </thead>
-            <tbody>
+            {% if citas %}
+            <div class="results-container mt-5">
+                <h2>Resultados</h2>
                 {% for cita in citas %}
-                <tr>
-                    <td>{{ cita.nombreMedico }}</td>
-                    <td>{{ cita.nombrePaciente }}</td>
-                    <td>{{ cita.fecha }}</td>
-                    <td>{{ cita.sintomas }}</td>
-                    <td>{{ cita.diagnostico }}</td>
-                    <td>{{ cita.tratamiento }}</td>
-                </tr>
+                <div class="cita-info my-3 p-3 border rounded">
+                    <h4>Detalles de la cita:</h4>
+                    <p><strong>Nombre Médico:</strong> {{ cita[0] }}</p>
+                    <p><strong>Nombre Paciente:</strong> {{ cita[1] }}</p>
+                    <p><strong>Cita :</strong> {{ cita[5] }}</p>
+                    <p><strong>Síntomas:</strong> {{ cita[3] }}</p>
+                    <p><strong>Diagnóstico:</strong> {{ cita[4] }}</p>
+                    <p><strong>Tratamiento:</strong> {{ cita[2] }}</p>
+                </div>
                 {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% endif %}
-</div>
-</body>
-</html>
+            </div>
+            {% elif busqueda_realizada %}
+            <p class="mt-5">No hay citas para el paciente buscado.</p>
+            {% endif %}
+        </div>
+    </div> <!-- Fin del div de contenido centrado -->
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    {% with mensajes = get_flashed_messages(with_categories=True) %}
+      {% if mensajes %}
+          <script>
+              document.addEventListener('DOMContentLoaded', function () {
+                  {% for category, message in mensajes %}
+                      {% if category == 'success' %}
+                          Swal.fire({
+                              position: 'center',
+                              icon: 'success',
+                              title: 'Exito',
+                              text: "{{ message }}",
+                              showConfirmButton: true,
+                              timer: 5000
+                          });
+                      {% else %}
+                          Swal.fire({
+                              position: 'center',
+                              icon: 'error',
+                              title: 'Error',
+                              text: "{{ message }}",
+                              showConfirmButton: true,
+                              timer: 5000
+                          });
+                      {% endif %}
+                  {% endfor %}
+              });
+          </script>
+      {% endif %}
+  {% endwith %}
+</body>
+
+</html>

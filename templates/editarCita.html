@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Cita</title>
+    <link rel="stylesheet" type="text/css" href="../static/consultarPacientes.css">
+</head>
+<body>
+    {% include 'menu.html' %}
+
+    <div class="container">
+        <h2>Editar Cita</h2>
+        <form action="{{ url_for('actualizar_cita') }}" method="post">
+            <!-- Aquí es donde colocas los campos para editar la cita, basándote en lo que ya tienes en la consulta. -->
+            <input type="hidden" name="idCita" value="{{ cita.idCita }}">
+            Médico: <input type="text" name="nombreMedico" value="{{ cita.nombreMedico }}" readonly><br>
+            Paciente: <input type="text" name="nombrePaciente" value="{{ cita.nombrePaciente }}" readonly><br>
+            Síntomas: <textarea name="sintomas">{{ cita.sintomas }}</textarea><br>
+            Diagnóstico: <textarea name="diagnostico">{{ cita.diagnostico }}</textarea><br>
+            Tratamiento: <textarea name="tratamiento">{{ cita.tratamiento }}</textarea><br>
+            Fecha: <input type="date" name="fecha" value="{{ cita.fecha }}"><br>
+            <input type="submit" value="Guardar Cambios">
+        </form>
+    </div>
+</body>
+</html>

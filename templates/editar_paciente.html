@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Paciente</title>
+    <link rel="stylesheet" type="text/css" href="../static/editar.css">
+</head>
+<body>
+    {% include 'menu.html'%} 
+
+  <div class="container">
+    <h2>Editar Paciente</h2>
+    <form action="{{ url_for('actualizar_paciente', idPaciente=idPaciente) }}" method="post">
+      <label for="nombrePaciente">Nombre del paciente:</label>
+      <input type="text" id="nombrePaciente" name="nombrePaciente" required value="{{ paciente.nombrePaciente }}">
+  
+      <label for="fechanacimiento">Fecha de Nacimiento:</label>
+      <input type="date" id="fechanacimiento" name="fechanacimiento" required value="{{ paciente.fechanacimiento }}">
+  
+      <label for="enfermedades">Enfermedades Crónicas:</label>
+      <input type="text" id="enfermedades" name="enfermedades" value="{{ paciente.enfermedades }}">
+  
+      <label for="alergias">Alergias:</label>
+      <input type="text" id="alergias" name="alergias" value="{{ paciente.alergias }}">
+  
+      <label for="antecedentes">Antecedentes Familiares:</label>
+      <input type="text" id="antecedentes" name="antecedentes" value="{{ paciente.antecedentes }}">
+  
+      <input type="submit" value="Actualizar">
+    </form>
+  </div>
+</body>
+</html>
